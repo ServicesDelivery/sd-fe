@@ -1,39 +1,63 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material';
+import { Card, CardActionArea, CardMedia, CardContent, Typography, Grid } from '@mui/material';
+import { Category } from '../../types';
 
-type SearchItem = {
-    description: string,
-    img: string,
-    name: string,
-    id: string,
-    // averagePrice: string
-    // averageDuration: string
+const sizesMap = {
+    s: {
+        image: '100px',
+        gridSizes: {
+            xs: 6,
+            sm: 6,
+            md: 4,
+        },
+    },
+    m: {
+        image: '180px',
+        gridSizes: {
+            xs: 6,
+            sm: 4,
+            md: 3,
+        },
+    },
+    l: {
+        image: '250px',
+        gridSizes: {
+            xs: 6,
+            sm: 4,
+            md: 3,
+        },
+    }
 }
 
 type SearchResultProps = {
-    item: SearchItem
+    item: Category,
+    size?: 's' | 'm' | 'l'
 }
 
-function SearchResult({ item }: SearchResultProps) {
+function SearchResult({ item, size = 'm' }: SearchResultProps) {
+    const {image, gridSizes } = sizesMap[size];
+
     return (
-        <Link to={`/category/${item.id}`}>
-            <Card>
-                <CardActionArea>
-                    { item.img && <CardMedia
-                        component="img"
-                        height="180"
-                        image={item.img}
-                        alt={item.name}
-                    />}
-                    <CardContent>
-                        <Typography gutterBottom variant="body2" component="div">
-                            {item.name}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </Link>
+        <Grid item {...gridSizes}>
+            <Link to={`/category/${item.id}`}>
+                <Card>
+                    <CardActionArea>
+                        { item.img && <CardMedia
+                            component="img"
+                            height={image}
+                            image={item.img}
+                            alt={item.name}
+                        />}
+                        <CardContent>
+                            <Typography gutterBottom variant="body2" component="div">
+                                {item.name}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Link>
+        </Grid>
     );
 }
 
