@@ -5,24 +5,24 @@ import { Card, CardMedia, Typography, Grid } from '@mui/material';
 import { Company } from '../../types';
 import RatingStars from '../RatingStars/RatingStars';
 import Price from '../Price/Price';
-
-const cardStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '20px',
-    color: 'white',
-    background: 'rgba(256, 256, 256, 0.25)',
-    borderRadius: '20px',
-    '&:hover': {
-        background: 'rgba(256, 256, 256, 1)',
-    }
-};
+import { useTheme } from '@mui/material/styles';
 
 type CompanyCardProps = {
     item: Company
 }
 
 function CompanyCard({ item }: CompanyCardProps) {
+    const theme = useTheme();
+
+    const cardStyles = {
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '20px',
+        color: theme.palette.text.primary,
+        background: theme.palette.background.default,
+        borderRadius: '20px',
+    };
+
     return (
         <Grid item sx={{ marginBottom: '20px' }}>
             <Link to={`/category/${item.id}`} style={{textDecoration: 'none'}}>
@@ -34,7 +34,7 @@ function CompanyCard({ item }: CompanyCardProps) {
                             alignItems: 'baseline',
                         }}
                     >
-                        <RatingStars rating={item.rating} style={{color: 'white', fontSize: '18px'}}/>
+                        <RatingStars rating={item.rating} style={{fontSize: '18px'}}/>
                         <CardMedia
                             component="img"
                             sx={{ height: 50, width: 50, border: '1px solid #eee', borderRadius: '50%' }}

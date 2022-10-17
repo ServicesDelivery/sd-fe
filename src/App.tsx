@@ -1,8 +1,9 @@
 import React from 'react';
-import {Grid, Paper, Typography} from '@mui/material';
+import { Grid, Paper, Typography } from '@mui/material';
 import SearchSection from './components/SearchSection/SearchSection'
-import { Category } from './types';
+import { useTheme } from '@mui/material/styles';
 
+import { Category } from './types';
 import './assets/main.css'
 
 const SearchResults: Category[] = [
@@ -50,11 +51,13 @@ function App() {
         Service Delivery
     </Typography>)
 
+    const theme = useTheme();
+
     return (
         <div className="App">
             <Paper
                 sx={{
-                    backgroundColor: '#1A2027',
+                    backgroundColor: theme.palette.background.paper,
                     minHeight: '100vh',
                     padding: '20px',
                 }}

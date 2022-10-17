@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star, StarBorder, StarHalfOutlined } from '@mui/icons-material';
-import {Style} from "util";
+import { useTheme } from '@mui/material/styles';
 
 type RatingStarsProps = {
     rating: number,
@@ -9,7 +9,9 @@ type RatingStarsProps = {
 }
 
 function RatingStars({ rating, maxStars=5, style }: RatingStarsProps) {
-    const defaultStyle: React.CSSProperties = { color: '#fcde03', fontSize: '20px'};
+    const theme = useTheme();
+
+    const defaultStyle: React.CSSProperties = { color: theme.palette.primary.main, fontSize: '20px'};
 
    const fullStars = Math.floor(rating);
    const emptyStars = maxStars - Math.ceil(rating);

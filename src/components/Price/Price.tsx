@@ -1,6 +1,8 @@
 import React from 'react';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { PriceRange } from '../../types';
+import { useTheme } from '@mui/material/styles';
+
 
 type PriceProps = {
     value: PriceRange,
@@ -8,8 +10,10 @@ type PriceProps = {
 }
 
 function Price({ value, style={} }: PriceProps) {
+    const theme = useTheme();
+
     const defaultStyle: React.CSSProperties = {
-        color: 'white',
+        color: theme.palette.text.primary,
         fontSize: '20px',
         margin: '0 -5px',
     };

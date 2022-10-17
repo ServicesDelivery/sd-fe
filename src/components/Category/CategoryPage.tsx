@@ -3,6 +3,7 @@ import {Grid, Paper, Typography} from '@mui/material';
 import CompaniesList from '../Company/CompaniesList';
 import { Company, Category, PriceRange } from '../../types';
 import SearchSection from "../SearchSection/SearchSection";
+import { useTheme } from '@mui/material/styles';
 
 const SearchResults: Category[] = [
     {
@@ -124,13 +125,15 @@ function CategoryPage() {
             Category Name
         </Typography>
         <Typography variant="body2" color="primary">description: Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae dignissimos eius eos error facere iure maxime optio provident repellendus saepe? Ad consequuntur dignissimos dolores ipsam nemo! Eveniet incidunt repudiandae voluptas.</Typography>
-    </div>)
+    </div>);
+
+    const theme = useTheme();
 
     return (
         <div>
             <Paper
                 sx={{
-                    backgroundColor: '#1A2027',
+                    backgroundColor: theme.palette.background.default,
                     boxSizing: 'border-box',
                     minHeight: '100vh',
                     borderRadius: '0',
