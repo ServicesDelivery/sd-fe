@@ -1,19 +1,25 @@
-import React, { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { ReactNode, useState } from 'react';
 import { Grid, Container } from '@mui/material';
 import SearchField from "./SearchField";
 import SearchResult from "./SearchResult";
 import { Category } from "../../types";
 
-type SearchSectionProps = {
+type SearchFiltersSectionProps = {
     items: Category[],
     beforeSearchNode?: ReactNode,
     size?: 's' | 'm' | 'l'
 }
 
-function SearchSection({ items, size = 'm', beforeSearchNode }: SearchSectionProps) {
-    const navigate = useNavigate();
-    const onSearchCardClick = (id: string) => navigate(`/category/${id}`);
+function SearchFiltersSection({ items, size = 'm', beforeSearchNode }: SearchFiltersSectionProps) {
+    const [selectedCards, setSelectedCards] = useState<string[]>([]);
+
+    const onSearchCardClick = (id: string) => {
+        if (selectedCards.includes(id)) {
+            setSelectedCards(selectedCards.filter(i => i !== id));
+        } else {
+            setSelectedCards([...selectedCards, id]);
+        }
+    };
 
     return (
         <Grid
@@ -37,6 +43,7 @@ function SearchSection({ items, size = 'm', beforeSearchNode }: SearchSectionPro
                                 size={size}
                                 item={category}
                                 key={category.id}
+                                isActive={selectedCards.includes(category.id)}
                                 onClick={() => onSearchCardClick(category.id)}
                             />
                         ))
@@ -47,4 +54,4 @@ function SearchSection({ items, size = 'm', beforeSearchNode }: SearchSectionPro
     );
 }
 
-export default SearchSection;
+export default SearchFiltersSection;

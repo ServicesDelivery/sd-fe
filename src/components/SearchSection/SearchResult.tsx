@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardActionArea, CardMedia, CardContent, Typography, Grid } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { Card, CardActionArea, CardMedia, CardContent, Typography, Grid, Button } from '@mui/material';
 import { Category } from '../../types';
 
 const sizesMap = {
@@ -8,9 +8,11 @@ const sizesMap = {
         image: '100px',
         gridSizes: {
             xs: 6,
-            sm: 6,
-            md: 4,
+            sm: 12,
+            md: 6,
+            lg: 4,
         },
+        textHeight: '40px',
     },
     m: {
         image: '180px',
@@ -18,7 +20,9 @@ const sizesMap = {
             xs: 6,
             sm: 4,
             md: 3,
+            lg: 3,
         },
+        textHeight: '30px',
     },
     l: {
         image: '250px',
@@ -26,37 +30,50 @@ const sizesMap = {
             xs: 6,
             sm: 4,
             md: 3,
+            lg: 3,
         },
+        textHeight: '30px',
     }
 }
 
 type SearchResultProps = {
     item: Category,
+    onClick?: () => void,
+    isActive?: boolean,
     size?: 's' | 'm' | 'l'
 }
 
-function SearchResult({ item, size = 'm' }: SearchResultProps) {
-    const {image, gridSizes } = sizesMap[size];
+function SearchResult({ item, onClick, isActive = false, size = 'm' }: SearchResultProps) {
+    const {image, gridSizes, textHeight } = sizesMap[size];
+    const theme = useTheme();
 
     return (
         <Grid item {...gridSizes}>
-            <Link to={`/category/${item.id}`}>
-                <Card>
-                    <CardActionArea>
-                        { item.img && <CardMedia
-                            component="img"
-                            height={image}
-                            image={item.img}
-                            alt={item.name}
-                        />}
-                        <CardContent>
-                            <Typography gutterBottom variant="body2" component="div">
-                                {item.name}
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
-            </Link>
+            <Card
+                onClick={onClick}
+                style={{outline: isActive ? `2px solid ${theme.palette.primary.light}` : '' }}
+            >
+                <CardActionArea>
+                    { item.img && <CardMedia
+                        component="img"
+                        height={image}
+                        image={item.img}
+                        alt={item.name}
+                    />}
+                    <CardContent>
+                        <Typography
+                            height={textHeight}
+                            gutterBottom
+                            variant="body2"
+                            component="div"
+                            textAlign="center"
+                            sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                        >
+                            {item.name}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
         </Grid>
     );
 }

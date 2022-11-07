@@ -2,7 +2,7 @@ import React from 'react';
 import {Grid, Paper, Typography} from '@mui/material';
 import CompaniesList from '../Company/CompaniesList';
 import { Company, Category, PriceRange } from '../../types';
-import SearchSection from "../SearchSection/SearchSection";
+import SearchFiltersSection from "../SearchSection/SearchFiltersSection";
 import { useTheme } from '@mui/material/styles';
 
 const SearchResults: Category[] = [
@@ -130,39 +130,34 @@ function CategoryPage() {
     const theme = useTheme();
 
     return (
-        <div>
-            <Paper
+        <Grid
+            container
+            component="main"
+            direction="row"
+            justifyContent="center"
+            sx={{
+                backgroundColor: theme.palette.background.default,
+                boxSizing: 'border-box',
+                minHeight: '100vh',
+                borderRadius: '0',
+            }}
+        >
+            <Grid container item xs={12} sm={4}>
+                <SearchFiltersSection size="s" items={SearchResults} beforeSearchNode={CategoryNameNode} />
+            </Grid>
+            <Grid
+                container
+                item
+                alignItems="flex-start"
+                xs={false}
+                sm={8}
                 sx={{
-                    backgroundColor: theme.palette.background.default,
-                    boxSizing: 'border-box',
-                    minHeight: '100vh',
-                    borderRadius: '0',
+                    backgroundColor: theme.palette.background.paper,
                 }}
             >
-                <Grid
-                    container
-                    component="main"
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <Grid container item xs={12} sm={4} sx={{ padding: '20px' }}>
-                        <SearchSection items={SearchResults} beforeSearchNode={CategoryNameNode} size="s"/>
-                    </Grid>
-                    <Grid
-                        container
-                        item
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
-                        xs={false}
-                        sm={8}
-                    >
-                        <CompaniesList items={companiesList} />
-                    </Grid>
-                </Grid>
-            </Paper>
-        </div>
+                <CompaniesList items={companiesList} />
+            </Grid>
+        </Grid>
     );
 }
 

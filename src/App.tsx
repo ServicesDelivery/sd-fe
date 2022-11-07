@@ -57,7 +57,7 @@ function App() {
         <div className="App">
             <Paper
                 sx={{
-                    backgroundColor: theme.palette.background.paper,
+                    backgroundColor: theme.palette.background.default,
                     minHeight: '100vh',
                     padding: '20px',
                 }}
